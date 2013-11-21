@@ -2,8 +2,7 @@
 	Author: code34 nicolas_boiteux@yahoo.fr
 	Copyright (C) 2013 Nicolas BOITEUX
 
-	Real weather for MP GAMES 
-	V 1.0 Original Release
+	Real weather for MP GAMES v 1.2 
 	
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
