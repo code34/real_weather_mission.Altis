@@ -1,0 +1,1 @@
+[] execVM "real_weather.sqf";
