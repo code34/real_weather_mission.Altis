@@ -93,7 +93,8 @@
 		private["_timesync"];
 		_timesync = _this select 0;
 
-		while { true } do {	
+		while { true } do {
+			wcweather set [4, date];
 			publicvariable "wcweather";
 			sleep _timesync;
 		};
