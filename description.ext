@@ -1,0 +1,7 @@
+Author = "Code34";
+
+class Params {
+	//// Real weather - Start ////
+	#include "real_weather.hpp"
+	//// Real weather - End   ////
+};
