@@ -1,7 +1,9 @@
 Author = "Code34";
-
-class Params {
-	//// Real weather - Start ////
-	#include "real_weather.hpp"
-	//// Real weather - End   ////
+class Header {
+	maxPlayers = 1;
+	minPlayers = 1;
+	gameType = COOP;
 };
+onLoadName = "Real Weather";
+overviewText = "Real Weather";
+overviewTextLocked = "Dynamic Real Weather sample mission";

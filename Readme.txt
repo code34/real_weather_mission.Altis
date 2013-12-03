@@ -25,6 +25,11 @@
 	You can share, modify, distribute this script but don't remove the licence and the name of the original author
 
 	logs:
+		1.2 fix :
+			- fix time bug
+			- add starting weather & date parameter
+			- synchronize JIP weather
+
 		1.1 fix:
 			- sync MP
 			- tune weather rain when cloudy

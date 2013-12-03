@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 	*/
 
-	private ["_lastrain", "_rain", "_fog", "_mintime", "_maxtime", "_overcast", "_realtime", "_random", "_skiptime", "_timeforecast", "_timeratio", "_timesync", "_wind"];
+	private ["_lastrain", "_rain", "_fog", "_mintime", "_maxtime", "_overcast", "_realtime", "_random", "_skiptime", "_startingdate", "_startingweather", "_timeforecast", "_timeratio", "_timesync", "_wind"];
 	
 	// Real time vs fast time
 	// true: Real time is more realistic weather conditions change slowly (ideal for persistent game)
@@ -46,6 +46,12 @@
 	// shortest time do not improve weather sync
 	_timesync = 60;
 
+	// Mission starting date is 25/09/2013 at 12:00
+	_startingdate = [2013, 09, 25, 12, 00];
+
+	// Mission starting weather "CLEAR|CLOUDY|RAIN";
+	_startingweather = "CLEAR";
+
 	/////////////////////////////////////////////////////////////////
 	// Do not edit below
 	/////////////////////////////////////////////////////////////////
@@ -56,18 +62,50 @@
 	// we check the skiptime for 10 seconds
 	_skiptime = _timeratio * 0.000278 * 10;
 
-	// init wcweather
-	wcweather = [rain, fog, overcast, wind, date];
+	setdate _startingdate;
+	switch(toUpper(_startingweather)) do {
+		case "CLEAR": {
+			wcweather = [0, 0, 0, [random 3, random 3, true], date];
+		};
+		
+		case "CLOUDY": {
+			wcweather = [0, 0, 0.6, [random 3, random 3, true], date];
+		};
+		
+		case "RAIN": {
+			wcweather = [1, 0, 1, [random 3, random 3, true], date];
+		};
+
+		default {
+			// clear
+			wcweather = [0, 0, 0, [random 3, random 3, true], date];
+			diag_log "Real weather: wrong starting weather";
+		};
+	};
 
 	// add handler
-	if (local player) then {	
+	if (local player) then {
+		wcweatherstart = true;
 		"wcweather" addPublicVariableEventHandler {
-			wcweather = _this select 1;
-			60 setRain (wcweather select 0);
-			60 setfog (wcweather select 1);
-			60 setOvercast (wcweather select 2);
-			setwind (wcweather select 3);
-			setdate (wcweather select 4);
+			// first JIP synchronization
+			if(wcweatherstart) then {
+				wcweatherstart = false;
+				skipTime -24;
+				86400 setRain (wcweather select 0);
+				86400 setfog (wcweather select 1);
+				86400 setOvercast (wcweather select 2);
+				skipTime 24;
+				simulweatherSync;
+				setwind (wcweather select 3);
+				setdate (wcweather select 4);
+			}else{
+				wcweather = _this select 1;
+				60 setRain (wcweather select 0);
+				60 setfog (wcweather select 1);
+				60 setOvercast (wcweather select 2);
+				setwind (wcweather select 3);
+				setdate (wcweather select 4);
+			};
 		};
 	};
 
@@ -86,6 +124,16 @@
 
 	// SERVER SIDE SCRIPT
 	if (!isServer) exitWith{};
+
+	// apply weather
+	skipTime -24;
+	86400 setRain (wcweather select 0);
+	86400 setfog (wcweather select 1);
+	86400 setOvercast (wcweather select 2);
+	skipTime 24;
+	simulweatherSync;
+	setwind (wcweather select 3);
+	setdate (wcweather select 4);
 
 	// sync server & client weather & time
 	[_timesync] spawn {
