@@ -26,7 +26,7 @@
 
 	logs:
 		1.3 fix :
-			- replace skiptime by setTimeMultiplier for smooth transition (Krizz)
+			- replace accelerate time by setTimeMultiplier for smooth transition (Krizz)
 		1.2 fix :
 			- fix time bug
 			- add starting weather & date parameter
