@@ -2,7 +2,7 @@
 	============
 
 	Author: code34 nicolas_boiteux@yahoo.fr
-	Copyright (C) 2013 Nicolas BOITEUX
+	Copyright (C) 2015 Nicolas BOITEUX
 
 	Create rain, wind, fog, and sync time on MP game
 	Make random weather during the game
@@ -25,6 +25,8 @@
 	You can share, modify, distribute this script but don't remove the licence and the name of the original author
 
 	logs:
+		1.3 fix :
+			- replace skiptime by setTimeMultiplier for smooth transition (Krizz)
 		1.2 fix :
 			- fix time bug
 			- add starting weather & date parameter
