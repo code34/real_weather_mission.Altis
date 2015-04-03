@@ -25,6 +25,9 @@
 	You can share, modify, distribute this script but don't remove the licence and the name of the original author
 
 	logs:
+		1.4:
+			- add night & day time ratio
+
 		1.3 fix :
 			- replace accelerate time by setTimeMultiplier for smooth transition (Krizz)
 		1.2 fix :
