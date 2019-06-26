@@ -60,7 +60,8 @@
 	if(_mintime > _maxtime) exitwith {hint format["Real weather: Max time: %1 can no be higher than Min time: %2", _maxtime, _mintime];};
 	_timeforecast = _mintime;
 
-	setdate _startingdate;
+	if!(isnil "_startingdate") then { setdate _startingdate };
+	
 	switch(toUpper(_startingweather)) do {
 		case "CLEAR": {
 			wcweather = [0, 0, 0, [random 3, random 3, true], date];
@@ -149,7 +150,7 @@
 
 	while {true} do {
 		_overcast = random 1;
-		if(_overcast > 0.70) then {
+		if((overcast > 0.7) and (_overcast > overcast)) then {
 			_rain = random 1;
 		} else {
 			_rain = 0;
